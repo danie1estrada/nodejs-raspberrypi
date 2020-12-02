@@ -30,31 +30,18 @@ io.on('connection', socket => {
 				const distance = diff / 2 / MICRO_SECONDS_PER_CM
 				
 				socket.emit('distance', { distance })
-				console.log(distance)
 			}
 		})
 	}
-
 	readTemperature()
+	
 	setInterval(() => {
 		trigger.trigger(10, 1)
 	}, 1000)
 
 	socket.on('add note', note => {
-			
+		socket.broadcast.emit('new note', note)
 	})
-
-	socket.on('turn on', data => {
-		console.log('Turn on led')
-		led.writeSync(1)
-		socket.broadcast.emit('new note', data)
-	})
-
-	socket.on('turn off', data => {
-		console.log('Turn off led')
-		led.writeSync(0)
-	})
-
 })
 
 http.listen(3000, () => {
