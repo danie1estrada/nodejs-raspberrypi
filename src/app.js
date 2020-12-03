@@ -51,7 +51,12 @@ io.on('connection', socket => {
 	socket.on('present image', imageUrl => {
 		socket.broadcast.emit('present image', imageUrl)
 	})
+
+	socket.on('disconnect', () => {
+		console.log('Client disconnected')
+	})
 })
+
 
 http.listen(3000, () => {
 	console.log('Server running...')
