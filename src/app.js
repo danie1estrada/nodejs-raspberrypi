@@ -40,7 +40,16 @@ io.on('connection', socket => {
 	}, 1000)
 
 	socket.on('add note', note => {
+		console.log(note);
 		socket.broadcast.emit('new note', note)
+	})
+
+	socket.on('delete note', noteId => {
+		socket.broadcast.emit('note deleted', noteId)
+	})
+
+	socket.on('present image', imageUrl => {
+		socket.broadcast.emit('present image', imageUrl)
 	})
 })
 
